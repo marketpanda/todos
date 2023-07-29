@@ -1,107 +1,44 @@
 import { useRef, useState } from 'react' 
 import './App.css'
-import { v4 as taskId } from 'uuid';
+ 
+import { NavLink, Routes, Route } from 'react-router-dom';
+import SignUp from './components/SignUp';
+import TaskWrap from './components/TaskWrap';
+import SignIn from './components/SignIn';
+import Front from './components/Front';
  
 
 export default function App() {
-
   interface ATask {
     id:string,
     task: string,
     time: EpochTimeStamp
   }
-
-  const logTime = new Date()
-
-  const [newTask, setNewTask] = useState('')
+  
   const [tasks, setTasks] = useState<ATask[]>([])
+  const [newTask, setNewTask] = useState('')
    
-
-
-  
-  const addTask = (e:any) => {
-    const getId = taskId();
-    const getTime = Date.now()
-     
-    e.preventDefault();
-    setTasks((current) => 
-      [...current, { id: getId, task: newTask, time: getTime }]
-     ) 
-    console.log([...tasks, { id: getId, task: newTask, time: 'now'}])
-    setNewTask('')
-  }
-
-  
-   
-
-  const Edit = () => {
-    console.log('edit')
-  }
-
-  
-  const RemoveTask = (id:string) => {
-    
-    console.log('removed', id)
-    setTasks(currentTasks => {
-      return currentTasks.filter(task => task.id != id)       
-    })
-  }
-   
-  const Tasks:any = () => {
-    return (
-      <>
-        <div>
-          
-          <ul>
-            {
-              tasks.map(
-                task =>  {
-                  return <li>
-                  {task.task}
-                  <div className='date'>{logTime.getDay()}</div>
-                  <span>
-                    <button onClick={() => Edit()} >
-                      Edit
-                    </button>
-                    <button onClick={() => RemoveTask(task.id)} >
-                      x
-                    </button> 
-                  </span>
-                </li>
-                }
-                
-              )
-            }
- 
-          </ul> 
-        </div>   
-      </>
-      
-    )
-  } 
-
 
   return (
     <>
       <div  className='wrap'>
         <h3><span className='title'>Tasks</span></h3>
-        
-        <div className='form'>
-          <form>
-            <input 
-              type="text" 
-              placeholder='Type task here'
-              value={newTask}
-              onChange={(e) => setNewTask(e.target.value)}
-               
-            
-            />
-            <button onClick={addTask}>Add</button> 
-          </form> 
-        </div>
-        <Tasks />
-      </div>
-      
+        <div className='menus'>
+          <ul>
+            <li><NavLink className={({isActive}) => (isActive ? 'activeButton' : 'inactiveButton')} to='/'>Home</NavLink></li>
+            <li><NavLink className={({isActive}) => (isActive ? 'activeButton' : 'inactiveButton')} to='task_manager'>Tasks Manager</NavLink></li>
+            <li><NavLink className={({isActive}) => (isActive ? 'activeButton' : 'inactiveButton')} to='login'>Sign In</NavLink></li>
+            <li><NavLink className={({isActive}) => (isActive ? 'activeButton' : 'inactiveButton')} to='register'>Sign Up</NavLink></li> 
+          </ul>
+        </div> 
+
+        <Routes>
+          <Route path='/' element={<Front />}></Route>
+          <Route path='register' element={<SignUp />}></Route>
+          <Route path='login' element={<SignIn />}></Route>
+          <Route path='task_manager' element={<TaskWrap newTask={newTask} setNewTask={setNewTask} tasks={tasks} setTasks={setTasks}  />}></Route>
+        </Routes> 
+      </div> 
     </>
   )
 }
