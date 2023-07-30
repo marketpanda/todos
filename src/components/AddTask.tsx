@@ -7,23 +7,18 @@ export function AddTask ({newTask, setNewTask, tasks, setTasks, e}:any) {
 
     const getId = taskId();
     const timeStamp = Date.now()
-    // const getTime = new Date(timeStamp).toLocaleString() + ''
-  
-     
-     
-     
-   
-    setTasks((current:string) => 
-      [...current, { id: getId, task: newTask, time: timeStamp, status: 'todo' }]
-     ) 
+    
+    const update = [...tasks, { id: getId, task: newTask, time: timeStamp, status: 'todo' }]
+    setTasks(update)
+
     console.log([...tasks, { id: getId, task: newTask, time: timeStamp, status: 'todo'}])
-    setNewTask('')
+
+    localStorage.setItem('theTasks', JSON.stringify(update))
+    //setNewTask('')
 
   }
  
-  const Edit = () => {
-    console.log('edit')
-  }
+ 
 
  
 

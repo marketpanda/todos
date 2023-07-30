@@ -8,35 +8,48 @@ export default function Signup () {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [success, setSuccess] = useState<boolean>(false)
 
-
+  const [validEmail, setValidEmail] = useState(false)
+  const [validPassword, setValidPassword] = useState(false) 
   const [errors, setErrors] = useState<string[]>([])
 
-  const signUpUser = (e:React.SyntheticEvent) => {
-    
-    e.preventDefault()
 
-    //const USER_REGEX = /^\[A-z\][A-z0-9-_]{3,23}$/;
-    //const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+  const regexEmail  = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+  const regexPassword = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/
+
+  useEffect(() => {
+    setValidEmail(regexEmail.test(email));
+  }, [email]);
+
+  useEffect(() => { 
+    setValidPassword(password.length >= 6 && regexPassword.test(password));
+  }, [password]);
  
-    if (email == '') {
-      const er = 'Please type a username'
-      if (errors.includes(er)) return
-      setErrors([...errors, er]) 
-    } 
 
-    if (password == '') {
-      const er = 'Please type a password'
-      if (errors.includes(er)) return
-      setErrors([...errors, er])
-    } else if ( password != confirmPassword ) {
-      setErrors([...errors, 'Passwords do not match'])
+  const signUpUser = (e:React.SyntheticEvent) => {
+ 
+    e.preventDefault()  
+
+    
+    if (!validEmail) {
+      setErrors([...errors, 'Invalid email address']);
     }
 
-    if (errors.length == 0) {
+    if (!validPassword) {
+      setErrors([...errors, 'Password must be at least 6 characters long and contain at least 1 letter and 1 digit']);
+    }
+
+    if (password !== confirmPassword) {
+      setErrors([...errors, 'Passwords do not match']);
+    }
+  
+    
+
+    if (validEmail && validPassword && (password == confirmPassword)) {
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           console.log(userCredential)
           setSuccess(true)
+          setErrors([])
         }).catch((error) => {
           console.log(error)
         })
@@ -47,9 +60,7 @@ export default function Signup () {
     
     setEmail('')
     setPassword('')
-    setConfirmPassword('')
-
-    
+    setConfirmPassword('') 
   }
 
   const displayErrors = () => {
@@ -57,16 +68,14 @@ export default function Signup () {
     if (errors.length == 0) return  
     return (
       <div className='errorHandler'>{
-        errors.map((error) => (
+        errors.map((error, i) => (
           <div key={error}>{error}<br /></div>
         ))
       }</div> 
     )
   }
 
-  useEffect(() => {
-    setErrors([])
-  }, [email, password])
+  
  
 
   return (
@@ -79,12 +88,12 @@ export default function Signup () {
             <h3>Sign Up</h3>
             <div className='condensed'>
               <label htmlFor="username">Email</label>
-              <input id="username" value={email} type="text" onChange={(e) => setEmail(e.target.value)} />
+              <input id="username" value={email} type="text" onChange={(e) => setEmail(e.target.value)} required />
             </div>
 
             <div className='condensed'>
               <label htmlFor="password">Password</label>
-              <input value={password} type="password" onChange={(e) => setPassword(e.target.value)} />
+              <input value={password} type="password" onChange={(e) => setPassword(e.target.value)} required />
             </div>
 
             <div className='condensed'>

@@ -40,6 +40,23 @@ body {
 }
 
 
+.sortBox { 
+  display: flex;
+  flex-direction: row; 
+  font-size: small;
+  justify-content: right;
+  gap: 5px;
+}
+
+.sortBox a {
+  color:#5b5b5b
+}
+
+
+.sortBox a:hover {
+  color:black
+}
+
 form {
   display: flex;
   flex-direction: column; 

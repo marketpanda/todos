@@ -1,12 +1,25 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
  
  
 export default function Tasks({tasks, setTasks}:any) { 
+
+  useEffect(() => {
+    const storedTasks = localStorage.getItem('theTasks')
+    if (storedTasks) {
+      setTasks(JSON.parse(storedTasks))
+    }
+
+  }, [])
+  
   
   const RemoveTask = (id:string) => {
-    setTasks((currentTasks:any) => {
-      return currentTasks.filter((task: { id: string }) => task.id != id)       
-    })
+    const getFilter = tasks.filter((task: { id: string }) => task.id != id)
+
+    setTasks(getFilter)
+
+    localStorage.setItem('theTasks', JSON.stringify(getFilter)) 
+
+
     console.log('removed', id)
      
   }
@@ -28,10 +41,36 @@ export default function Tasks({tasks, setTasks}:any) {
     console.log(tasks)
  
   }
+
+   
+
+  const sortByName = () => {
+    console.log('by name')
+    const sortName = [...tasks].sort((a, b) => a.task > b.task ? 1 : -1)
+    console.log(sortName)
+    setTasks(sortName)
+  }
+
+  const sortByDate = () => {
+    console.log('by date')
+    const sortDate = [...tasks].sort((a, b) => a.time - b.time)
+    console.log(sortDate)
+    setTasks(sortDate)
+  }
+
+
+  
+
  
   return (
       <>
         <div className='taskBar'> 
+          <div className='sortBox'>
+            <div>Sory by:</div>
+            <div><a href="#" onClick={sortByName}>Task Name</a> |</div>
+            <div><a href="#" onClick={sortByDate}>Date Created</a></div>
+          
+          </div>
           <ul>
            
             

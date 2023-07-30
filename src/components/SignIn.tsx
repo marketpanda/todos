@@ -12,9 +12,7 @@ export default function SignIn () {
   
    
   const signInEmail = async (e:React.SyntheticEvent) => {
-    e.preventDefault();
-
-      
+    e.preventDefault(); 
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredentials) => {
         const response = axios.post(
@@ -25,55 +23,81 @@ export default function SignIn () {
               withCredentials: true
             }
         )
-        setEmail('')
-        setPassword('')
+         
         setSuccess(true)
         console.log(userCredentials)
+
+
+        localStorage.setItem('email', email) 
+        console.log('google ', email) 
+
+ 
+
       }).catch((error) => {
-        const errorCode = error.code
+         
         const errorMessage = error.message
         console.log(errorMessage)
       }) 
-  }
- 
- 
+  } 
 
   const viaGoogle = () => {
-    signInWithPopup(auth, providerGoogle).then((data) => {
+    signInWithPopup(auth, providerGoogle).then((data:any) => {
       
       // localStorage.setItem('email', data.user.email)
       // localStorage.setItem('avatar', data.user.photoURL)
       // localStorage.setItem('username', data.user.displayName)
 
-      // setEmail(data.user.email)
+      setEmail(data.user.email)
+      setSuccess(true)
+
+      localStorage.setItem('email', data.user.email)
+      localStorage.setItem('avatar', data.user.photoURL)
+      localStorage.setItem('userName', data.user.displayName)
+       
 
       console.log(data)
-      console.log('avatar') 
-      console.log('hi there')
+      console.log('google ', email) 
+      
     })
   }
 
   return (
     <>
-      <form onSubmit={signInEmail}>
-        <h3>Log In</h3>
+      {
+        success ? (
+          <>
+            Hi there!
+          </>
 
-        <div className='condensed'>
-          <label htmlFor="username">Username</label>
-          <input id="username" value={email} type="text" onChange={(e) => setEmail(e.target.value)} />
-        </div>
 
-        <div className='condensed'>
-          <label htmlFor="password">Password</label>
-          <input value={password} type="password" onChange={(e) => setPassword(e.target.value)}  /> 
-        </div> 
+        ) : (
+          <>
+            <form onSubmit={signInEmail}>
+              <h3>Log In</h3>
 
-        <button className='minButton'>Sign In</button>
-        <div className='signInOptions'> 
-          <button className='minButton' onClick={viaGoogle}>Sign In with Google</button> 
-        </div>
+              <div className='condensed'>
+                <label htmlFor="username">Username</label>
+                <input id="username" value={email} type="text" onChange={(e) => setEmail(e.target.value)} />
+              </div>
 
-      </form>
+              <div className='condensed'>
+                <label htmlFor="password">Password</label>
+                <input value={password} type="password" onChange={(e) => setPassword(e.target.value)}  /> 
+              </div> 
+
+              <button className='minButton'>Sign In</button>
+              <div className='signInOptions'> 
+                <button className='minButton' onClick={viaGoogle}>Sign In with Google</button> 
+              </div> 
+            </form>
+          </> 
+        )
+      }
+        
+      
+
+ 
+        
       
     </>
     

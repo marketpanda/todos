@@ -2,9 +2,11 @@ import React from 'react'
 import { AddTask } from './AddTask'
   
 export default function TaskForm ({newTask, setNewTask, setTasks, tasks}:any) {
+
      
     return (
         <div className='addTaskForm'>
+            
             <form>
                 <input 
                     type="text" 
