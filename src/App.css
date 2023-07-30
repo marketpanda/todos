@@ -44,8 +44,14 @@ body {
   display: flex;
   flex-direction: row; 
   font-size: small;
-  justify-content: right;
-  gap: 5px;
+  justify-content: space-between;
+  gap: 5px; 
+}
+
+.sortRightIcons {
+  width: 200px;
+  display: flex;
+  flex-direction: row;
 }
 
 .sortBox a {
@@ -113,7 +119,17 @@ form label {
 .minButton {
   width: 200px;
 }
- 
+
+.search {
+   
+}
+
+.search input {
+  box-shadow: 0;
+  height: 20px;
+  margin-top: 5px;
+  width: 235px;
+}
 
 .title {
   margin-left: 10px;

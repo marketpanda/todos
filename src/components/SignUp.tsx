@@ -98,7 +98,7 @@ export default function Signup () {
 
             <div className='condensed'>
               <label htmlFor="confirmPassword">Confirm Password</label>
-              <input value={confirmPassword} type="password" onChange={(e) => setConfirmPassword(e.target.value)} /> 
+              <input value={confirmPassword} type="password" onChange={(e) => setConfirmPassword(e.target.value)} required/> 
             </div> 
             <button className='minButton'>Sign Up</button> 
           </form>

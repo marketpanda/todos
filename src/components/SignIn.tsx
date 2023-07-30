@@ -14,6 +14,7 @@ export default function SignIn () {
     e.preventDefault(); 
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredentials) => {
+        // @ts-ignore
         const response = axios.post(
           LOGIN_URL ,
           JSON.stringify({email, password}),

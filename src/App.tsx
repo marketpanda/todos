@@ -18,9 +18,7 @@ export default function App() {
   
   const [tasks, setTasks] = useState<ATask[]>([])
   const [newTask, setNewTask] = useState('')
-
-  
-    
+ 
   return (
     <>
       <div  className='wrap'>

@@ -2,7 +2,7 @@
 import { v4 as taskId } from 'uuid';
 
 // @ts-ignore
-export function AddTask ({newTask, tasks, setTasks, e}:any) {
+export function AddTask ({newTask, setNewTask, tasks, setTasks, e}:any) {
     e.preventDefault();
     if (newTask == '') return
 
@@ -11,6 +11,7 @@ export function AddTask ({newTask, tasks, setTasks, e}:any) {
     
     const update = [...tasks, { id: getId, task: newTask, time: timeStamp, status: 'todo' }]
     setTasks(update)
+    setNewTask('')
 
     console.log([...tasks, { id: getId, task: newTask, time: timeStamp, status: 'todo'}])
 
