@@ -1,4 +1,4 @@
-import React from 'react'
+ 
 import bannner from '../assets/tasks_cartoon.jpg'
 
 const Front = () => {

@@ -1,7 +1,8 @@
  
 import { v4 as taskId } from 'uuid';
 
-export function AddTask ({newTask, setNewTask, tasks, setTasks, e}:any) {
+// @ts-ignore
+export function AddTask ({newTask, tasks, setTasks, e}:any) {
     e.preventDefault();
     if (newTask == '') return
 

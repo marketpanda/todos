@@ -68,7 +68,7 @@ export default function Signup () {
     if (errors.length == 0) return  
     return (
       <div className='errorHandler'>{
-        errors.map((error, i) => (
+        errors.map((error) => (
           <div key={error}>{error}<br /></div>
         ))
       }</div> 

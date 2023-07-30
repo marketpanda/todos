@@ -1,3 +1,4 @@
+// @ts-ignore
 import React from 'react'
 import TaskForm from './TaskForm'
 import Tasks from './Tasks'
