@@ -11,24 +11,50 @@ export default function Tasks({tasks, setTasks}:any) {
      
   }
  
+
+  const parseTime = (t:string) => {
+    return new Date(t).toLocaleString()  
+  }
+
+  const changeStatus = (id:string, status:string) => {
+    
+     
+    setTasks((prevTasks:any) =>  
+      prevTasks.map((task:any) => 
+        task.id == id ? {... task, status:status} : task
+      )
+    )
+    console.log(id, status)
+    console.log(tasks)
+ 
+  }
+ 
   return (
       <>
-        <div> 
+        <div className='taskBar'> 
           <ul>
+           
+            
             {
               tasks.map(
-                (task: { task: string, id:string }) =>  {
+                (task: { task: string, id:string, status: string, time:string}) =>  {
                   return <li key={task.id}>
-                    {task.task}
-                    <div className='date'>"date"</div>
                     <span>
-                      {/* <button onClick={() => Edit()} >
-                        Edit
-                      </button>
-                      */}
-                      <button onClick={() => RemoveTask(task.id)} >
-                        x 
-                      </button>  
+                    {task.task}
+                    <div className='date'>{parseTime(task.time)}</div>
+                    </span>
+                    
+                    <span className='taskRightIcons'>
+                        
+                        <span className='statusWrap'>
+                          <button className={task.status == 'todo' ? "bStatus" : ""} onClick={() => changeStatus(task.id, 'todo')}>TODO</button>
+                          <button className={task.status == 'inprogress' ? "bStatus" : ""} onClick={() => changeStatus(task.id, 'inprogress')}>IN PROGRESS</button>
+                          <button className={task.status == 'completed' ? "bStatus" : ""} onClick={() => changeStatus(task.id, 'completed')}>COMPLETED</button>
+                          {/* {task.status} */}
+
+                          <button onClick={() => RemoveTask(task.id)} > x </button> 
+                        </span> 
+                        
                     </span>
                   </li>
                 } 

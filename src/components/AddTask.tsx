@@ -2,18 +2,21 @@
 import { v4 as taskId } from 'uuid';
 
 export function AddTask ({newTask, setNewTask, tasks, setTasks, e}:any) {
-
+    e.preventDefault();
     if (newTask == '') return
 
     const getId = taskId();
-    const getTime = Date.now()
+    const timeStamp = Date.now()
+    // const getTime = new Date(timeStamp).toLocaleString() + ''
+  
      
      
-    e.preventDefault();
+     
+   
     setTasks((current:string) => 
-      [...current, { id: getId, task: newTask, time: getTime }]
+      [...current, { id: getId, task: newTask, time: timeStamp, status: 'todo' }]
      ) 
-    console.log([...tasks, { id: getId, task: newTask, time: getTime}])
+    console.log([...tasks, { id: getId, task: newTask, time: timeStamp, status: 'todo'}])
     setNewTask('')
 
   }

@@ -12,13 +12,13 @@ export default function App() {
   interface ATask {
     id:string,
     task: string,
-    time: EpochTimeStamp
+    time: string,
+    status: string
   }
   
   const [tasks, setTasks] = useState<ATask[]>([])
   const [newTask, setNewTask] = useState('')
-   
-
+    
   return (
     <>
       <div  className='wrap'>
@@ -36,7 +36,7 @@ export default function App() {
           <Route path='/' element={<Front />}></Route>
           <Route path='register' element={<SignUp />}></Route>
           <Route path='login' element={<SignIn />}></Route>
-          <Route path='task_manager' element={<TaskWrap newTask={newTask} setNewTask={setNewTask} tasks={tasks} setTasks={setTasks}  />}></Route>
+          <Route path='task_manager' element={<TaskWrap newTask={newTask} setNewTask={setNewTask} tasks={tasks} setTasks={setTasks} />}></Route>
         </Routes> 
       </div> 
     </>
