@@ -45,13 +45,14 @@ export default function Signup ({
     }
    
 
-    if (validEmail && validPassword && (password == confirmPassword)) {
+    if (validEmail && validPassword) {
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           console.log(userCredential)
           setSuccess(true)
           setErrors([])
-          setLogged(true  )
+          setLogged(true)
+          localStorage.setItem('email', email)
         }).catch((error) => {
           console.log(error)
           if (error.code === 'auth/email-already-in-use') {
@@ -60,6 +61,7 @@ export default function Signup ({
             setErrors(['An error occurred during sign-up. Please try again.']);
           }
         })
+    
     }
  
 
@@ -81,9 +83,6 @@ export default function Signup ({
       }</div> 
     )
   }
-
-  
- 
 
   return (
     <>
