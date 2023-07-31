@@ -5,7 +5,11 @@ import axios from 'axios';
  
 const LOGIN_URL = '/auth'
 
-export default function SignIn () {
+
+
+export default function SignIn ({
+    logged, setLogged
+  }:any) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [success, setSuccess] = useState(false);
@@ -25,6 +29,7 @@ export default function SignIn () {
         )
          
         setSuccess(true)
+        setLogged(true)
         console.log(userCredentials)
 
 
@@ -49,10 +54,11 @@ export default function SignIn () {
 
       setEmail(data.user.email)
       setSuccess(true)
+      setLogged(true)
 
       localStorage.setItem('email', data.user.email)
-      localStorage.setItem('avatar', data.user.photoURL)
-      localStorage.setItem('userName', data.user.displayName)
+       
+       
        
 
       console.log(data)
@@ -60,6 +66,8 @@ export default function SignIn () {
       
     })
   }
+
+ 
 
   return (
     <>
