@@ -1,1 +1,1 @@
-![task manager]([https://github.com/marketpanda/todos/blob/[branch]/image.jpg?raw=true](https://github.com/marketpanda/todos/blob/main/src/assets/ss.JPG)https://github.com/marketpanda/todos/blob/main/src/assets/ss.JPG)
+![task manager](https://github.com/marketpanda/todos/blob/main/src/assets/ss.JPG)https://github.com/marketpanda/todos/blob/main/src/assets/ss.JPG)
